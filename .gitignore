@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 .known/
 .venv/
+.idea/
 app.log
