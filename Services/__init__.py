@@ -64,7 +64,6 @@ def simple_detect_faces(frame):
     face_locations = face_recognition.face_locations(small_frame)
     face_encodings = face_recognition.face_encodings(small_frame, face_locations)
     for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
-        # Scale back up face locations since the frame we detected inwas scaled to 1/4 size
         top *= 4
         right *= 4
         bottom *= 4
@@ -72,9 +71,6 @@ def simple_detect_faces(frame):
 
         box = (left - 20, top - 30, right + 20, bottom + 20)
         area = Image.fromarray(frame[:, :, ::-1]).crop(box)
-
-        matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
-        face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
 
         # Draw a box around the face
         cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)

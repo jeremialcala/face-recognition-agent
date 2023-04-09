@@ -1,9 +1,6 @@
 import logging
 import cv2
 import asyncio
-import face_recognition
-import numpy as np
-import os
 from Objects.Event import Event
 from datetime import datetime
 from Services import detect_faces, simple_detect_faces
@@ -19,6 +16,10 @@ def capture_video(args, event):
     while True:
         ret, frame = cap.read()
         frame = simple_detect_faces(frame)
+        font = cv2.FONT_HERSHEY_DUPLEX
+        cv2.rectangle(frame, (0, 10), (370, 30), (0, 0, 255), cv2.FILLED)
+        cv2.putText(frame, datetime.now().strftime('%Y-%m-%d %H:%M:%S'), (0, 30), font, 1.0,
+                    (255, 255, 255), 1)
         cv2.imshow('Capturing', frame)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):  # click q to stop capturing
